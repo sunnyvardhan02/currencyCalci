@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+
+        header,
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            /* Align items at the top */
+            padding: 20px;
+        }
+
+        .converter-container {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .converter-container div {
+            margin-bottom: 15px;
+        }
+
+        .converter-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .converter-container input,
+        .converter-container select,
+        .converter-container button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .converter-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .converter-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            animation: fadeIn 1s ease-in-out;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .error {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            animation: fadeIn 1s ease-in-out;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Currency Converter</h1>
+    </header>
+    <main>
+        <div class="converter-container">
+            <form method="POST">
+                <div>
+                    <label for="amount">Amount:</label>
+                    <input type="number" step="0.01" name="amount" id="amount" required>
+                </div>
+                <div>
+                    <label for="from_currency">From:</label>
+                    <select name="from_currency" id="from_currency" required>
+                        {% for code, name in currencies %}
+                        <option value="{{ code }}">{{ name }} ({{ code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="to_currency">To:</label>
+                    <select name="to_currency" id="to_currency" required>
+                        {% for code, name in currencies %}
+                        <option value="{{ code }}">{{ name }} ({{ code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit">Convert</button>
+            </form>
+            {% if result %}
+            <p class="result">{{ result }}</p>
+            {% elif error_message %}
+            <p class="error">{{ error_message }}</p>
+            {% endif %}
+        </div>
+
+    </main>
+    <div>
+        <h4> Created By
+            P. VIVEK GOUD(22E31A6626)</h4>
+    </div>
+    <footer>
+        <p>&copy; 2024 Currency Converter</p>
+    </footer>
+</body>
+
+</html>
